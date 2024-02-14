@@ -36,40 +36,42 @@ partial class MainFragment : IFunction2
 {
     public Java.Lang.Object? Invoke(Java.Lang.Object? p0, Java.Lang.Object? p1)
     {
-        var hdrFile = "environments/studio_small_09_2k.hdr";
+        //var hdrFile = "environments/studio_small_09_2k.hdr";
 
-        var light = sceneView.LoadHdrIndirectLight(hdrFile, specularFilter: true);
-        light.Intensity = (30_000f);
+        //var light = sceneView.LoadHdrIndirectLight(hdrFile, specularFilter: true);
+        //light.Intensity = (30_000f);
 
-        var skybox = sceneView.LoadHdrSkybox(hdrFile);
-        skybox.Intensity(50_000f);
+        //var skybox = sceneView.LoadHdrSkybox(hdrFile);
+        //skybox.Intensity(50_000f);
 
-        var model = sceneView.ModelLoader.LoadModel("models/MaterialSuite.glb", null, null);
-        var modelNode = new ModelNode(sceneView, model); 
-        
-        {
-            transform(
-                position = Position(z = -4.0f),
-                rotation = Rotation(x = 15.0f)
-            )
-                scaleToUnitsCube(2.0f)
-                // TODO: Fix centerOrigin
-                //  centerOrigin(Position(x=-1.0f, y=-1.0f))
-                playAnimation()
-            }
-        sceneView.addChildNode(modelNode)
+        //var model = sceneView.ModelLoader.LoadModel("models/MaterialSuite.glb", null, null);
+        //var modelNode = new ModelNode(sceneView, model); 
 
-            val viewNode = ViewNode(
-                sceneView = sceneView,
-                viewResourceId = R.layout.view_node_layout
-            ).apply {
-            transform(
-                position = Position(z = -4f),
-                rotation = Rotation()
-            )
-            }
-        sceneView.addChildNode(viewNode)
+        //{
+        //    transform(
+        //        position = Position(z = -4.0f),
+        //        rotation = Rotation(x = 15.0f)
+        //    )
+        //        scaleToUnitsCube(2.0f)
+        //        // TODO: Fix centerOrigin
+        //        //  centerOrigin(Position(x=-1.0f, y=-1.0f))
+        //        playAnimation()
+        //    }
+        //sceneView.addChildNode(modelNode)
 
-            loadingView.isGone = true
+        //    val viewNode = ViewNode(
+        //        sceneView = sceneView,
+        //        viewResourceId = R.layout.view_node_layout
+        //    ).apply {
+        //    transform(
+        //        position = Position(z = -4f),
+        //        rotation = Rotation()
+        //    )
+        //    }
+        //sceneView.addChildNode(viewNode)
+
+        //    loadingView.isGone = true
+
+        return null;
     }
 }
