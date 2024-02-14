@@ -12,7 +12,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Io.Github.Sceneview.Arsceneview" Version="2.0.3.1" />
+    <PackageReference Include="Io.Github.Sceneview.Sceneview" Version="2.0.3.1" />
     <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.6.1.6" />
+    <PackageReference Include="Xamarin.AndroidX.Fragment" Version="1.6.2.1" />
     <PackageReference Include="Xamarin.Google.Android.Material" Version="1.10.0.2" />
   </ItemGroup>
 </Project>

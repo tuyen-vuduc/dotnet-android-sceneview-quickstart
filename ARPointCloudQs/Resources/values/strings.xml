@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AR Point Cloud</string>
+    <string name="app_name">tv.ARPntCld</string>
     <string name="score">Score: %1$.2f - %2$d</string>
     <string name="min_confidence">Min confidence (%1$.2f)</string>
     <string name="max_points">Max points (%1$d)</string>
