@@ -3,7 +3,7 @@ using AndroidX.AppCompat.App;
 using AndroidX.Core.Graphics;
 using AndroidX.Core.View;
 
-namespace SceneViewQs
+namespace ModelViewerQs
 {
     [Activity(Label = "@string/app_name", MainLauncher = true, Theme = "@style/Theme.SceneViewSample")]
     public class MainActivity : AppCompatActivity
@@ -32,7 +32,7 @@ namespace SceneViewQs
             });
 
             var fragmentTransaction = SupportFragmentManager.BeginTransaction();
-            fragmentTransaction.Add(Resource.Id.containerFragment, new MainFragment(), new Bundle());
+            fragmentTransaction.Add(Resource.Id.containerFragment, new MainFragment(), "demo");
             fragmentTransaction.Commit();
         }
 

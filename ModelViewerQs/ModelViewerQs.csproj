@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>28</SupportedOSPlatformVersion>
+    <AndroidMinSdkVersion>28</AndroidMinSdkVersion>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationId>dev.tuyentv.sceneview</ApplicationId>
+    <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Assets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Io.Github.Sceneview.Sceneview" Version="2.0.0" />
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.6.1.6" />
+    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.10.0.2" />
+    <PackageReference Include="Xamarin.Kotlin.StdLib" Version="1.9.22" />
+    <PackageReference Include="Xamarin.KotlinX.Coroutines.Android" Version="1.7.3.3" />
+    <PackageReference Include="Xamarin.KotlinX.Coroutines.Core" Version="1.7.3.3" />
+    <PackageReference Include="Xamarin.KotlinX.Coroutines.Core.Jvm" Version="1.7.3.3" />
+  </ItemGroup>
+</Project>
