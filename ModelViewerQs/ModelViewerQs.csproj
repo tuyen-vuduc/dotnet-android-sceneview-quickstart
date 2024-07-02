@@ -14,12 +14,8 @@
     <Folder Include="Assets\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Io.Github.Sceneview.Sceneview" Version="2.0.0" />
-    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.6.1.6" />
-    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.10.0.2" />
-    <PackageReference Include="Xamarin.Kotlin.StdLib" Version="1.9.22" />
-    <PackageReference Include="Xamarin.KotlinX.Coroutines.Android" Version="1.7.3.3" />
-    <PackageReference Include="Xamarin.KotlinX.Coroutines.Core" Version="1.7.3.3" />
-    <PackageReference Include="Xamarin.KotlinX.Coroutines.Core.Jvm" Version="1.7.3.3" />
+    <PackageReference Include="Io.Github.Sceneview.Sceneview" Version="2.2.1" />
+    <PackageReference Include="Xamarin.AndroidX.Lifecycle.Runtime.Ktx" Version="2.8.2.1" />
+    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.11.0" />
   </ItemGroup>
 </Project>

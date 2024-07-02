@@ -1,10 +1,12 @@
 ﻿using Android.Views;
+using AndroidX.Lifecycle;
 using Com.Google.Android.Filament;
 using Com.Google.Android.Filament.Gltfio;
 using Com.Google.Android.Filament.Utils;
 using IO.Github.Sceneview;
 using IO.Github.Sceneview.Loaders;
-using IO.Github.Sceneview.Nodes;
+using IO.Github.Sceneview.Model;
+using IO.Github.Sceneview.Node;
 using Kotlin.Coroutines;
 using Kotlin.Jvm.Functions;
 using Xamarin.KotlinX.Coroutines;
@@ -16,6 +18,7 @@ public partial class MainFragment : AndroidX.Fragment.App.Fragment
 {
     SceneView sceneView;
     View loadingView;
+    private LifecycleCoroutineScope lifeCycleScope;
 
     public override View? OnCreateView(LayoutInflater inflater, ViewGroup? container, Bundle? savedInstanceState)
     {
@@ -27,12 +30,11 @@ public partial class MainFragment : AndroidX.Fragment.App.Fragment
         base.OnViewCreated(view, savedInstanceState);
 
         sceneView = view.FindViewById<SceneView>(Resource.Id.sceneView);
-        sceneView.SetLifecycle(Lifecycle);
+        sceneView.Lifecycle = Lifecycle;
 
         loadingView = view.FindViewById(Resource.Id.loadingView);
 
-        var lifeCycleScope = AndroidX.Lifecycle.LifecycleOwnerKt.GetLifecycleScope(this);
-
+        lifeCycleScope = AndroidX.Lifecycle.LifecycleOwnerKt.GetLifecycleScope(this);
         lifeCycleScope.LaunchWhenCreated(this);
     }
 }
@@ -74,6 +76,25 @@ class XResult : Java.Lang.Object, IFunction1
     }
 }
 
+
+class XContinuation : Java.Lang.Object, IContinuation
+{
+    private readonly Action<Java.Lang.Object> action;
+
+    public ICoroutineContext Context { get; private set; }
+
+    public XContinuation(ICoroutineContext context, Action<Java.Lang.Object> action)
+    {
+        this.action = action;
+        this.Context = context;
+    }
+
+    public void ResumeWith(Java.Lang.Object result)
+    {
+        action?.Invoke(result);
+    }
+}
+
 partial class XLoadModel : Java.Lang.Object, IFunction1
 {
     private readonly string baseFileName;
@@ -96,47 +117,32 @@ partial class MainFragment : IFunction2
         var hdrFile = "environments/studio_small_09_2k.hdr";
 
         var options = new HDRLoader.Options();
-        HDRLoaderKt.LoadHdrIndirectLightAsync(sceneView, hdrFile, options, true, new HdrIndirectLightBuilder(), new XResult(_ =>
+
+        sceneView.EnvironmentLoader.LoadHDREnvironment(hdrFile, true, options, true, new XContinuation(
+            this.lifeCycleScope.CoroutineContext,
+            obj =>
         {
-            HDRLoaderKt.LoadHdrSkyboxAsync(sceneView, hdrFile, options, new HdrSkyboxBuilder(), new XResult(_ =>
-            {
-                sceneView.ModelLoader.LoadModelAsync("models/MaterialSuite.glb", new XLoadModel(hdrFile), new XResult(xmodel =>
-                {
-                    if (xmodel is not FilamentInstance model) return;
-
-                    var modelNode = new ModelNode(sceneView, model);
-
-                    modelNode.InvokeTransform(
-                        new Dev.Romainguy.Kotlin.Math.Float3(0, 0, -4.0f),
-                        new Dev.Romainguy.Kotlin.Math.Float3(15.0f, 0, 0),
-                        modelNode.Scale,
-                        false,
-                        1.0f);
-
-                    modelNode.ScaleToUnitsCube(2.0f);
-                    modelNode.PlayAnimation(0, true);
-                    sceneView.AddChildNode(modelNode);
-
-                    var viewNode = new ViewNode(
-                        sceneView,
-                        Resource.Layout.view_node_layout,
-                        false,
-                        false
-                    );
-                    viewNode.InvokeTransform(
-                        new Dev.Romainguy.Kotlin.Math.Float3(0, 0, -4.0f),
-                        new Dev.Romainguy.Kotlin.Math.Float3(0f, 0, 0),
-                        viewNode.Scale,
-                        false,
-                        1.0f
-                        );
-                    sceneView.AddChildNode(viewNode);
-
-                    loadingView.Visibility = ViewStates.Invisible;
-                }));
-            }));
+            var env = obj as IO.Github.Sceneview.Environment.Environment;
+            sceneView.IndirectLight = env?.IndirectLight;
+            sceneView.Skybox = env?.Skybox;
         }));
-        
+        sceneView.CameraNode.Position = new Dev.Romainguy.Kotlin.Math.Float3(0, 0, 4);
+
+        var modelFile = "models/MaterialSuite.glb";
+        var modelInstance = sceneView.ModelLoader.CreateModelInstance(modelFile, new XResult(obj =>
+        {
+
+        }));
+
+        var modelNode = new ModelNode(
+                modelInstance,
+                true,
+                new Java.Lang.Float(2.0f),
+                null
+            );
+        modelNode.Scale = new Dev.Romainguy.Kotlin.Math.Float3(3f, 0, 0);
+        sceneView.AddChildNode(modelNode);
+        loadingView.Visibility = ViewStates.Gone;
         return null;
     }
 }

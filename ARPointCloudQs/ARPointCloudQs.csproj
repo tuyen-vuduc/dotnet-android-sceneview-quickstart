@@ -11,11 +11,8 @@
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Io.Github.Sceneview.Arsceneview" Version="2.0.4" />
-    <PackageReference Include="Dev.Romainguy.KotlinMath" Version="1.5.3.1" />
-    <PackageReference Include="Io.Github.Sceneview.Sceneview" Version="2.0.4" />
-    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.6.1.7" />
-    <PackageReference Include="Xamarin.AndroidX.Fragment" Version="1.6.2.2" />
-    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.10.0.2" />
+    <PackageReference Include="Io.Github.Sceneview.Arsceneview" Version="2.2.1" />
+    <PackageReference Include="Xamarin.AndroidX.Lifecycle.Runtime.Ktx" Version="2.8.2.1" />
+    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.11.0" />
   </ItemGroup>
 </Project>
